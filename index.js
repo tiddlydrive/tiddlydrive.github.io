@@ -114,8 +114,8 @@
           document.getElementById('top-title').innerText = evt.target.innerText;
         }, false);
     } else {
-      setTimeout(addSaver, 1000);
+      setTimeout(setupSaver, 1000);
     }
   }
-  addSaver();
+  setupSaver();
 })();
