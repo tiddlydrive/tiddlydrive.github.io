@@ -7,7 +7,7 @@ var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/drive/v3/res
 
 // Authorization scopes required by the API; multiple scopes can be
 // included, separated by spaces.
-var SCOPES = 'https://www.googleapis.com/auth/drive.metadata.readonly';
+var SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
 
 /**
@@ -43,42 +43,29 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     alert("signed in");
+    fetch_file();
   } else {
     alert("not signed in");
     gapi.auth2.getAuthInstance().signIn();
   }
 }
 
-/*
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- * @param {string} message Text to be placed in pre element.
- */
-function appendPre(message) {
-  var pre = document.getElementById('content');
-  var textContent = document.createTextNode(message + '\n');
-  pre.appendChild(textContent);
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-/**
- * Print files.
- */
-function listFiles() {
-  gapi.client.drive.files.list({
-    'pageSize': 10,
-    'fields': "nextPageToken, files(id, name)"
-  }).then(function(response) {
-    appendPre('Files:');
-    var files = response.result.files;
-    if (files && files.length > 0) {
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        appendPre(file.name + ' (' + file.id + ')');
-      }
-    } else {
-      appendPre('No files found.');
-    }
+function fetch_file() {
+  var request = gapi.client.drive.files.get({
+    'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
+    'alt': 'media'
+  });
+  request.execute(function(resp) {
+    console.log(resp);
   });
 }
