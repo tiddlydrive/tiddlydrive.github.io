@@ -43,10 +43,8 @@
    */
   function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
-      alert("signed in");
       fetch_file();
     } else {
-      alert("not signed in");
       gapi.auth2.getAuthInstance().signIn();
     }
   }
@@ -73,14 +71,16 @@
   function saver(text, method, callback, options){
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
       var request = gapi.client.request({
-        'path': '/upload/drive/v2/files/' +"0BwsHdOe4HEkcQV9rWDZJVmV6MG8",
+        'path': '/upload/drive/v2/files/' + JSON.parse(getParameterByName('state')).ids.pop(),
         'method': 'PUT',
         'params': {'uploadType': 'multipart', 'alt': 'json'},
         'headers': {
           'Content-Type': 'text/html'
         },
         'body': text});
-        request.execute(console.log);
+      request.execute(function() {
+        callback('Saved to Drive');
+      });
       return true;
     } else {
       callback('Not authorized.');
