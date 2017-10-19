@@ -1,3 +1,5 @@
+var handleClientLoad;
+
 (function(){
   // Client ID and API key from the Developer Console
   var CLIENT_ID = '292510858390-7md8cr4332ppas1hcoccj7g1j24i9iqg.apps.googleusercontent.com';
