@@ -61,11 +61,10 @@ function getParameterByName(name, url) {
 }
 
 function fetch_file() {
-  var request = gapi.client.drive.files.get({
-    'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
-    'alt': 'media'
-  });
-  request.execute(function(resp) {
-    console.log(resp);
+    gapi.client.drive.files.get({
+        'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
+        'alt': 'media'
+    }).then(function(file){
+    document.getElementById('content').srcdoc=file.body;
   });
 }
