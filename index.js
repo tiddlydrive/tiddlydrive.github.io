@@ -78,8 +78,15 @@
           'Content-Type': 'text/html'
         },
         'body': text});
-      request.execute(function() {
-        callback('Saved to Drive');
+      request.execute(function(res) {
+        if (typeof res === 'object' && typeof res.error !== 'object') {
+          $tw.saverHandler.numChanges = 0;
+          $tw.saverHandler.updateDirtyStatus();
+        } else if (typeof res === 'object' && typeof res.error === 'object') {
+          callback(res.error.message);
+        } else {
+          callback('Unknown error.');
+        }
       });
       return true;
     } else {
