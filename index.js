@@ -94,8 +94,7 @@
     if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
         $tw.saverHandler.savers.push({
         	info: {
-        		name: "tiddly-drive
-            ",
+        		name: "tiddly-drive",
         		priority: 5000,
         		capabilities: ["save", "autosave"]
         	},
