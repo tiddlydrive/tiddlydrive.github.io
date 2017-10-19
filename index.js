@@ -110,6 +110,7 @@
         });
 
         //Watch the title
+        document.getElementById('top-title').innerText = document.getElementById('content').contentWindow.document.getElementsByTagName("title")[0].innerText;
         document.getElementById('content').contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
           document.getElementById('top-title').innerText = evt.target.innerText;
         }, false);
