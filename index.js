@@ -72,7 +72,14 @@
 
   function saver(text, method, callback, options){
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
-      console.log(text);
+      var request = gapi.client.request({
+        'path': '/upload/drive/v2/files/' +"0BwsHdOe4HEkcQV9rWDZJVmV6MG8",
+        'method': 'PUT',
+        'params': {'uploadType': 'multipart', 'alt': 'json'},
+        'headers': {
+          'Content-Type': 'text/html'
+        },
+        'body': text});
       return true;
     } else {
       callback('Not authorized.');
@@ -80,20 +87,21 @@
     }
   }
 
-  var $tw = document.getElementById('content').contentWindow.$tw;
 
-  if(typeof($tw) !== "undefined" && $tw) {
-    if($tw.saverHandler && $tw.saverHandler.savers) {
-      $tw.saverHandler.savers.push({
-      	info: {
-      		name: "tiddly-chrome",
-      		priority: 5000,
-      		capabilities: ["save", "autosave"]
-      	},
-      	save: saver
-      });
+  function addSaver() {
+    var $tw = document.getElementById('content').contentWindow.$tw;
+    if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
+        $tw.saverHandler.savers.push({
+        	info: {
+        		name: "tiddly-chrome",
+        		priority: 5000,
+        		capabilities: ["save", "autosave"]
+        	},
+        	save: saver
+        });
     } else {
       setTimeout(addSaver, 1000);
     }
   }
+  addSaver();
 })();
