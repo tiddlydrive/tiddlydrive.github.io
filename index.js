@@ -69,6 +69,7 @@
   }
 
   function saver(text, method, callback, options){
+    var $tw = document.getElementById('content').contentWindow.$tw;
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
       var request = gapi.client.request({
         'path': '/upload/drive/v2/files/' + JSON.parse(getParameterByName('state')).ids.pop(),
