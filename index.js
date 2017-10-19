@@ -97,7 +97,7 @@
   }
 
 
-  function addSaver() {
+  function setupSaver() {
     var $tw = document.getElementById('content').contentWindow.$tw;
     if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
         $tw.saverHandler.savers.push({
@@ -108,6 +108,11 @@
         	},
         	save: saver
         });
+
+        //Watch the title
+        document.getElementById('content').contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
+          document.getElementById('top-title').innerText = evt.target.innerText;
+        }, false);
     } else {
       setTimeout(addSaver, 1000);
     }
