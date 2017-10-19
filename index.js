@@ -80,6 +80,7 @@
           'Content-Type': 'text/html'
         },
         'body': text});
+        request.execute(console.log);
       return true;
     } else {
       callback('Not authorized.');
@@ -93,7 +94,8 @@
     if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
         $tw.saverHandler.savers.push({
         	info: {
-        		name: "tiddly-chrome",
+        		name: "tiddly-drive
+            ",
         		priority: 5000,
         		capabilities: ["save", "autosave"]
         	},
