@@ -1,5 +1,3 @@
-var handleClientLoad;
-
 (function(){
   // Client ID and API key from the Developer Console
   var CLIENT_ID = '292510858390-7md8cr4332ppas1hcoccj7g1j24i9iqg.apps.googleusercontent.com';
@@ -16,7 +14,7 @@ var handleClientLoad;
   /**
    *  On load, called to load the auth2 library and API client library.
    */
-  function handleClientLoad() {
+  window.handleClientLoad = function() {
     gapi.load('client:auth2', initClient);
   }
 
