@@ -80,6 +80,7 @@
     }
   }
 
+  var $tw = document.getElementById('content').contentWindow.$tw;
 
   if(typeof($tw) !== "undefined" && $tw) {
     if($tw.saverHandler && $tw.saverHandler.savers) {
