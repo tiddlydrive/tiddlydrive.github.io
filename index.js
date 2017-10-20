@@ -81,7 +81,7 @@
   }
 
   function saver(text, method, callback, options){
-    if (!$('enable-autosave')[0].checked && method === 'autosave') {
+    if (!$('#enable-autosave')[0].checked && method === 'autosave') {
       return false;
     }
     var $tw = $('#content')[0].contentWindow.$tw;
