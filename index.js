@@ -143,7 +143,7 @@
     gapi.auth2.getAuthInstance().signIn();
   });
 
-  $('#enable-autosave')[0].checked = readCookie(readCookie('enableautosave') !== 'false');
+  $('#enable-autosave')[0].checked = readCookie('enableautosave') !== 'false';
   $('#enable-autosave').change(function() {
     function createCookie(name,value,days) {
         var expires = "";
@@ -157,7 +157,7 @@
     createCookie('enableautosave', this.checked, 364);
   });
 
-  $('#enable-hotkey-save')[0].checked = readCookie(readCookie('enablehotkeysave') !== 'false');
+  $('#enable-hotkey-save')[0].checked = readCookie('enablehotkeysave') !== 'false';
   $('#enable-hotkey-save').change(function() {
     function createCookie(name,value,days) {
         var expires = "";
