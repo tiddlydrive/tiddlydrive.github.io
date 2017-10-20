@@ -50,16 +50,6 @@
   }
 
 
-  function createCookie(name,value,days) {
-      var expires = "";
-      if (days) {
-          var date = new Date();
-          date.setTime(date.getTime() + (days*24*60*60*1000));
-          expires = "; expires=" + date.toUTCString();
-      }
-      document.cookie = name + "=" + value + expires + "; path=/";
-  }
-
   function readCookie(name) {
       var nameEQ = name + "=";
       var ca = document.cookie.split(';');
@@ -143,7 +133,7 @@
       setTimeout(setupSaver, 1000);
     }
   }
-  
+
   setupSaver();
   $('.modal').modal();
   $('#hide-fab').click(function(){
@@ -155,8 +145,17 @@
     }
   });
 
-  $('enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false'));
-  $('enable-autosave').change(function() {
-    createCookie('enable-autosave', this.checked, 364);
+  $('#enable-autosave').val(readCookie(readCookie('#enable-autosave') !== 'false'));
+  $('#enable-autosave').change(function() {
+    function createCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    createCookie('#enable-autosave', this.checked, 364);
   });
 })();
