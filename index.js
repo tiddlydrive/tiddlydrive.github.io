@@ -171,7 +171,7 @@
     }
     createCookie('enablehotkeysave', this.checked, 364);
   });
-  $(document).ready(function() {
+  $(window).load(function() {
     //Enable hotkey saving
     function save_hotkey(event) {
       if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
