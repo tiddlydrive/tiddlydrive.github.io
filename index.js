@@ -171,16 +171,16 @@
     }
     createCookie('enablehotkeysave', this.checked, 364);
   });
-  //Enable hotkey saving
-  function save_hotkey(event) {
-    if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
-    var $tw = $('#content')[0].contentWindow.$tw;
-    $tw.saverHandler.saveWiki();
-    event.preventDefault();
-    return false;
-  }
-
-  $(window).keypress(save_hotkey);
-  $($('#content')[0].contentWindow).keypress(save_hotkey);
-
 })();
+
+//Enable hotkey saving
+function save_hotkey(event) {
+  if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
+  var $tw = $('#content')[0].contentWindow.$tw;
+  $tw.saverHandler.saveWiki();
+  event.preventDefault();
+  return false;
+}
+
+$(window).keypress(save_hotkey);
+$($('#content')[0].contentWindow).keypress(save_hotkey);
