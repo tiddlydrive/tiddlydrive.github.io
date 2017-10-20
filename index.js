@@ -125,7 +125,7 @@
         });
 
         //Watch the title
-        $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title").innerText);
+        $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
         $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
           $('#top-title').text(evt.target.innerText);
         }, false);
