@@ -49,6 +49,12 @@
     }
   }
 
+  $('#auth').click(function(){
+    if(!gapi.auth2.getAuthInstance().isSignedIn.get()) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+  });
+
   function getParameterByName(name, url) {
       if (!url) url = window.location.href;
       name = name.replace(/[\[\]]/g, "\\$&");
@@ -64,12 +70,12 @@
           'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
           'alt': 'media'
       }).then(function(file){
-      document.getElementById('content').srcdoc=file.body;
+      $('#content')[0].srcdoc=file.body;
     });
   }
 
   function saver(text, method, callback, options){
-    var $tw = document.getElementById('content').contentWindow.$tw;
+    var $tw = $('#content')[0].contentWindow.$tw;
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
       var request = gapi.client.request({
         'path': '/upload/drive/v2/files/' + JSON.parse(getParameterByName('state')).ids.pop(),
@@ -98,7 +104,7 @@
 
 
   function setupSaver() {
-    var $tw = document.getElementById('content').contentWindow.$tw;
+    var $tw = $('#content')[0].contentWindow.$tw;
     if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
         $tw.saverHandler.savers.push({
         	info: {
@@ -110,9 +116,9 @@
         });
 
         //Watch the title
-        document.getElementById('top-title').innerText = document.getElementById('content').contentWindow.document.getElementsByTagName("title")[0].innerText;
-        document.getElementById('content').contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
-          document.getElementById('top-title').innerText = evt.target.innerText;
+        $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title").innerText);
+        $('#content')[0].contentWindow.document.getElementsByTagName("title").addEventListener("DOMSubtreeModified", function(evt) {
+          $('#top-title').text(evt.target.innerText);
         }, false);
     } else {
       setTimeout(setupSaver, 1000);
