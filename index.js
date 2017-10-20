@@ -76,8 +76,8 @@
           'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
           'alt': 'media'
       }).then(function(file){
-      $('#content')[0].srcdoc=file.body;
-    });
+        $('#content')[0].srcdoc=file.body;
+      });
   }
 
   function saver(text, method, callback, options){
@@ -140,9 +140,7 @@
     $('#open-settings').hide();
   });
   $('#auth').click(function() {
-    if(!gapi.auth2.getAuthInstance().isSignedIn.get()) {
-      gapi.auth2.getAuthInstance().signIn();
-    }
+    gapi.auth2.getAuthInstance().signIn();
   });
 
   $('#enable-autosave')[0].checked = readCookie(readCookie('enableautosave') !== 'false');
@@ -157,5 +155,27 @@
         document.cookie = name + "=" + value + expires + "; path=/";
     }
     createCookie('enableautosave', this.checked, 364);
+  });
+
+  $('#enable-hotkey-save')[0].checked = readCookie(readCookie('enablehotkeysave') !== 'false');
+  $('#enable-hotkey-save').change(function() {
+    function createCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    createCookie('enablehotkeysave', this.checked, 364);
+  });
+
+  $(window).keypress(function(event) {
+    if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
+    var $tw = $('#content')[0].contentWindow.$tw;
+    $tw.saverHandler.saveWiki();
+    event.preventDefault();
+    return false;
   });
 })();
