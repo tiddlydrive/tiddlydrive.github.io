@@ -154,6 +154,7 @@
         gapi.auth2.getAuthInstance().signIn();
       }
     });
+    
     $('enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false');
     $('enable-autosave').change(function() {
       createCookie('enable-autosave', this.checked, 364);
