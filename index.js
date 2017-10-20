@@ -145,7 +145,7 @@
     }
   });
 
-  $('#enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false'));
+  $('#enable-autosave')[0].checked = readCookie(readCookie('enableautosave') !== 'false');
   $('#enable-autosave').change(function() {
     function createCookie(name,value,days) {
         var expires = "";
@@ -156,6 +156,6 @@
         }
         document.cookie = name + "=" + value + expires + "; path=/";
     }
-    createCookie('enable-autosave', this.checked, 364);
+    createCookie('enableautosave', this.checked, 364);
   });
 })();
