@@ -143,21 +143,20 @@
       setTimeout(setupSaver, 1000);
     }
   }
+  
   setupSaver();
-  $(document).ready(function(){
-    $('.modal').modal();
-    $('#hide-fab').click(function(){
-      $('#open-settings').hide();
-    });
-    $('#auth').click(function() {
-      if(!gapi.auth2.getAuthInstance().isSignedIn.get()) {
-        gapi.auth2.getAuthInstance().signIn();
-      }
-    });
+  $('.modal').modal();
+  $('#hide-fab').click(function(){
+    $('#open-settings').hide();
+  });
+  $('#auth').click(function() {
+    if(!gapi.auth2.getAuthInstance().isSignedIn.get()) {
+      gapi.auth2.getAuthInstance().signIn();
+    }
+  });
 
-    $('enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false'));
-    $('enable-autosave').change(function() {
-      createCookie('enable-autosave', this.checked, 364);
-    })
+  $('enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false'));
+  $('enable-autosave').change(function() {
+    createCookie('enable-autosave', this.checked, 364);
   });
 })();
