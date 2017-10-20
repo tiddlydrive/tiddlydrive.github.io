@@ -91,6 +91,9 @@
   }
 
   function saver(text, method, callback, options){
+    if (!$('enable-autosave').val() && method === 'autosave') {
+      return false;
+    }
     var $tw = $('#content')[0].contentWindow.$tw;
     if (gapi.auth2.getAuthInstance().isSignedIn.get()) {
       var request = gapi.client.request({
@@ -151,7 +154,7 @@
         gapi.auth2.getAuthInstance().signIn();
       }
     });
-    $('enable-autosave').val(readCookie(readCookie('enable-autosave') !=== 'false');
+    $('enable-autosave').val(readCookie(readCookie('enable-autosave') !== 'false');
     $('enable-autosave').change(function() {
       createCookie('enable-autosave', this.checked, 364);
     })
