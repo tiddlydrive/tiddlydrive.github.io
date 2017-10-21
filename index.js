@@ -154,6 +154,7 @@
   $('.modal').modal();
   $(document).ready(function(){
     $('ul.tabs').tabs();
+    $('ul.tabs').tabs('select_tab', 'options');
   });
   $('#hide-fab').click(function(){
     $('#open-settings').hide();
