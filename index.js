@@ -80,7 +80,7 @@
         $('#loader').hide();
       }).catch(function(err) {
         $('#loader').hide();
-        $('#error-msg').hide();
+        $('#error-msg').show();
       });
   }
 
