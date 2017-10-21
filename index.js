@@ -77,6 +77,17 @@
           'alt': 'media'
       }).then(function(file){
         $('#content')[0].srcdoc=file.body;
+        //Enable hotkey saving
+        function save_hotkey(event) {
+          if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
+          var $tw = $('#content')[0].contentWindow.$tw;
+          $tw.saverHandler.saveWiki();
+          event.preventDefault();
+          return false;
+        }
+
+        $(window).keypress(save_hotkey);
+        $($('#content')[0].contentWindow).keypress(save_hotkey);
       });
   }
 
@@ -172,16 +183,3 @@
     createCookie('enablehotkeysave', this.checked, 364);
   });
 })();
-
-//Enable hotkey saving
-function save_hotkey(event) {
-  if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
-  var $tw = $('#content')[0].contentWindow.$tw;
-  $tw.saverHandler.saveWiki();
-  event.preventDefault();
-  return false;
-}
-$(window).on('load', ()=>console.log('top-load'));
-$($('#content')[0].contentWindow).on('load', ()=>console.log('frame-load'));
-$(window).keypress(save_hotkey);
-$($('#content')[0].contentWindow).keypress(save_hotkey);
