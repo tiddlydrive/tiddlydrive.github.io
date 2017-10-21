@@ -81,7 +81,7 @@
   }
 
   function saver(text, method, callback, options){
-    if (!$('#enable-autosave')[0].checked && method === 'autosave') {
+    if ($('#disable-save')[0].checked || !$('#enable-autosave')[0].checked && method === 'autosave') {
       return false;
     }
     var $tw = $('#content')[0].contentWindow.$tw;
@@ -155,6 +155,7 @@
     gapi.auth2.getAuthInstance().signIn();
   });
 
+  //Handle checkboxes
   $('#enable-autosave')[0].checked = readCookie('enableautosave') !== 'false';
   $('#enable-autosave').change(function() {
     function createCookie(name,value,days) {
@@ -181,5 +182,19 @@
         document.cookie = name + "=" + value + expires + "; path=/";
     }
     createCookie('enablehotkeysave', this.checked, 364);
+  });
+
+  $('#disable-save')[0].checked = readCookie('disablesave') === 'true';
+  $('#disable-save').change(function() {
+    function createCookie(name,value,days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days*24*60*60*1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + value + expires + "; path=/";
+    }
+    createCookie('disablesave', this.checked, 364);
   });
 })();
