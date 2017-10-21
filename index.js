@@ -77,6 +77,10 @@
           'alt': 'media'
       }).then(function(file){
         $('#content')[0].srcdoc=file.body;
+        $('#loader').hide();
+      }).catch(function(err) {
+        $('#loader').hide();
+        $('#error-msg').hide();
       });
   }
 

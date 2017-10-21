@@ -10,10 +10,15 @@
     <script src="/materialize.min.js"></script>
   </head>
   <body>
-    <div id="toolbar"></div>
+    <div class="modal-content grey-text text-lighten-2" style="display: none;" id="error-msg">
+      <h1>There was an error downloading the file</h1>
+    </div>
+    <div class="progress" id="loader">
+        <div class="indeterminate"></div>
+    </div>
     <iframe id="content"></iframe>
     <div class="fixed-action-btn">
-      <a id="open-settings" class="btn-floating btn-large modal-trigger waves-effect waves-light gray lighten-2" href="#settings"><i class="material-icons">settings</i></a>
+      <a id="open-settings" class="btn-floating btn-large modal-trigger waves-effect waves-light grey lighten-2" href="#settings"><i class="material-icons">settings</i></a>
     </div>
     <div id="settings" class="modal">
       <div class="modal-content">
