@@ -129,10 +129,10 @@
         $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
           $('#top-title').text(evt.target.innerText);
         }, false);
-        
+
         //Enable hotkey saving
         function save_hotkey(event) {
-          if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) && !$('#enable-hotkey-save')[0].checked) return true;
+          if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
           var $tw = $('#content')[0].contentWindow.$tw;
           $tw.saverHandler.saveWiki();
           event.preventDefault();
