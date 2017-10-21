@@ -20,3 +20,8 @@ body {
   display: none;
   text-align: center;
 }
+
+#nofile-msg {
+  display: none;
+  text-align: center;
+}

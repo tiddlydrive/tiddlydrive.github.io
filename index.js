@@ -72,16 +72,21 @@
   }
 
   function fetch_file() {
-      gapi.client.drive.files.get({
-          'fileId': JSON.parse(getParameterByName('state')).ids.pop(),
-          'alt': 'media'
-      }).then(function(file){
-        $('#content')[0].srcdoc=file.body;
-        $('#loader').hide();
-      }).catch(function(err) {
-        $('#loader').hide();
-        $('#error-msg').show();
-      });
+    var state = JSON.parse(getParameterByName('state'));
+    if (state == null) {
+      $('#loader').hide();
+      $('#nofile-msg').show();
+    }
+    gapi.client.drive.files.get({
+      'fileId': state.ids.pop(),
+      'alt': 'media'
+    }).then(function(file){
+      $('#content')[0].srcdoc=file.body;
+      $('#loader').hide();
+    }).catch(function(err) {
+      $('#loader').hide();
+      $('#error-msg').show();
+    });
   }
 
   function saver(text, method, callback, options){
