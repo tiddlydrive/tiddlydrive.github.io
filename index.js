@@ -152,6 +152,9 @@
 
   setupSaver();
   $('.modal').modal();
+  $(document).ready(function(){
+    $('ul.tabs').tabs();
+  });
   $('#hide-fab').click(function(){
     $('#open-settings').hide();
   });
