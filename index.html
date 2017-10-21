@@ -24,44 +24,58 @@
       <div class="modal-content">
         <h4>Tiddly Drive Settings</h4>
         <p>
-          <div class="container">
-            <div class="row">
-              <div class="col s12">
-                <h5>Saving</h5>
+          <div class="row">
+            <div class="col s12">
+              <ul class="tabs">
+                <li class="tab col s3"><a href="#options">Options</a></li>
+                <li class="tab col s3"><a class="active" href="#about">About</a></li>
+              </ul>
+            </div>
+            <div id="options" class="col s12">
+              <div class="container">
+                <div class="row">
+                  <div class="col s12">
+                    <h5>Saving</h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <input type="checkbox" id="enable-hotkey-save" checked="checked" />
+                    <label for="enable-hotkey-save">Save with <i>Ctrl</i> + <i>s</i> <b>or</b> <i>Ctrl</i> + <i>Shift</i> + <i>s</i></label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Not recommended for large files">
+                    <input type="checkbox" id="enable-autosave" checked="checked" />
+                    <label for="enable-autosave">Enable autosave</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Override the save-to-drive functionality and save normally">
+                    <input type="checkbox" id="disable-save" checked="unchecked" />
+                    <label for="disable-save">Use download saver</label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <h5>Connection</h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s12">
+                    <a class="waves-effect waves-light btn" id="auth">Authenticate</a>
+                    <label for="auth">(Use to renew authentication details)</label>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col s12">
-                <input type="checkbox" id="enable-hotkey-save" checked="checked" />
-                <label for="enable-hotkey-save">Save with <i>Ctrl</i> + <i>s</i> <b>or</b> <i>Ctrl</i> + <i>Shift</i> + <i>s</i></label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Not recommended for large files">
-                <input type="checkbox" id="enable-autosave" checked="checked" />
-                <label for="enable-autosave">Enable autosave</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12 tooltipped" data-position="bottom" data-delay="50" data-tooltip="Override the save-to-drive functionality and save normally">
-                <input type="checkbox" id="disable-save" checked="unchecked" />
-                <label for="disable-save">Use download saver</label>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <h5>Connection</h5>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col s12">
-                <a class="waves-effect waves-light btn" id="auth">Authenticate</a>
-                <label for="auth">(Use to renew authentication details)</label>
-              </div>
+            <div id="about" class="col s12">
+              <p>Thanks for using Tiddly Drive. The project is open source and license can be found <a href="/LICENSE.md">here</a>. If you would like to contribute, the repository is <a href="https://github.com/tiddlydrive/tiddlydrive.github.io">here</a><br>
+                 If you would like to contribute, you can donate to me via Bitcoin: 1KWgrQZM1mTrzoo6GKo1ijTbXPSWcaVRbY</p>
             </div>
           </div>
         </p>
-      </div>
+      </div>1KWgrQZM1mTrzoo6GKo1ijTbXPSWcaVRbY
       <div class="modal-footer">
         <a id="hide-fab" class="modal-action modal-close waves-effect waves-green btn-flat">Hide settings button until next reload</a>
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
