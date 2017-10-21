@@ -181,7 +181,7 @@ function save_hotkey(event) {
   event.preventDefault();
   return false;
 }
-$(window).load(()=>console.log('top-load'));
-$($('#content')[0].contentWindow).load(()=>console.log('frame-load'));
+$(window).on('load', ()=>console.log('top-load'));
+$($('#content')[0].contentWindow).on('load', ()=>console.log('frame-load'));
 $(window).keypress(save_hotkey);
 $($('#content')[0].contentWindow).keypress(save_hotkey);
