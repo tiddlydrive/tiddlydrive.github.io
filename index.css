@@ -15,3 +15,8 @@ body {
   padding:0;
   overflow:hidden;
 }
+
+#error-msg {
+  display: none;
+  text-align: center;
+}
