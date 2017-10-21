@@ -76,6 +76,7 @@
     if (state == null) {
       $('#loader').hide();
       $('#nofile-msg').show();
+      $('#content').hide();
       return;
     }
     gapi.client.drive.files.get({
