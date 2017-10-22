@@ -212,4 +212,8 @@
     }
     createCookie('disablesave', this.checked, 364);
   });
+
+  $(window).on("hashchange",function() {
+  	$('#content')[0].contentWindow.location.hash = location.hash;
+  });
 })();
