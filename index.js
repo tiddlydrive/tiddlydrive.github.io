@@ -109,6 +109,7 @@
         if (typeof res === 'object' && typeof res.error !== 'object') {
           $tw.saverHandler.numChanges = 0;
           $tw.saverHandler.updateDirtyStatus();
+          Materialize.toast("Saved to Drive", 2000);
         } else if (typeof res === 'object' && typeof res.error === 'object') {
           callback(res.error.message);
         } else {
