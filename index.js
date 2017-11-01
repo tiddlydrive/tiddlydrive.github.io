@@ -142,6 +142,15 @@
           $('#top-title').text(evt.target.innerText);
         }, false);
 
+        //Watch hash
+        $(window).on("hashchange",function() {
+        	$('#content')[0].contentWindow.location.hash = location.hash;
+        });
+
+        $($('#content')[0].contentWindow).on("hashchange",function() {
+        	location.hash = $('#content')[0].contentWindow.location.hash;
+        });
+
         //Enable hotkey saving
         function save_hotkey(event) {
           if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
@@ -212,13 +221,5 @@
         document.cookie = name + "=" + value + expires + "; path=/";
     }
     createCookie('disablesave', this.checked, 364);
-  });
-
-  $(window).on("hashchange",function() {
-  	$('#content')[0].contentWindow.location.hash = location.hash;
-  });
-
-  $($('#content')[0].contentWindow).on("hashchange",function() {
-  	location.hash = $('#content')[0].contentWindow.location.hash;
   });
 })();
