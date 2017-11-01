@@ -217,4 +217,8 @@
   $(window).on("hashchange",function() {
   	$('#content')[0].contentWindow.location.hash = location.hash;
   });
+
+  $($('#content')[0].contentWindow).on("hashchange",function() {
+  	location.hash = $('#content')[0].contentWindow.location.hash;
+  });
 })();
