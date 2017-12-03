@@ -6,6 +6,7 @@ pages:
   - export LANG=en_US.UTF-8
   - gem install jekyll
   - jekyll build -d public
+  - echo "prod" > public/env
   artifacts:
     paths:
     - public

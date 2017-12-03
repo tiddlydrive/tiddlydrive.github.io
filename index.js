@@ -49,7 +49,7 @@
     }
   }
 
-
+  // Helper functions ******
   function readCookie(name) {
       var nameEQ = name + "=";
       var ca = document.cookie.split(';');
@@ -61,6 +61,10 @@
       return null;
   }
 
+  function is_prod() {
+    return "tiddlydrive.lordratte.info" == window.location.hostname;
+  }
+
   function getParameterByName(name, url) {
       if (!url) url = window.location.href;
       name = name.replace(/[\[\]]/g, "\\$&");
@@ -70,6 +74,7 @@
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
+  // *****************
 
   function fetch_file() {
     var state = JSON.parse(getParameterByName('state'));
@@ -170,6 +175,9 @@
   setupSaver();
   $('.modal').modal();
   $(document).ready(function(){
+    if (!is_prod()) {
+      $('#noprod-warning').modal('open');
+    }
     $('ul.tabs').tabs();
     $('ul.tabs').tabs('select_tab', 'options');
   });
