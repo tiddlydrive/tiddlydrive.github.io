@@ -176,7 +176,7 @@
   $('.modal').modal();
   $(document).ready(function(){
     if (!is_prod()) {
-      $('#noprod-warning').modal('open');
+      $('#nonprod-warning').modal('open');
     }
     $('ul.tabs').tabs();
     $('ul.tabs').tabs('select_tab', 'options');
