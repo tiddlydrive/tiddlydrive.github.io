@@ -25,3 +25,7 @@ body {
   display: none;
   text-align: center;
 }
+
+.legacy-mode {
+  display: none;
+}

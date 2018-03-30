@@ -74,6 +74,11 @@
       if (!results[2]) return '';
       return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
+
+  function needLegacySrc() {
+      return getParameterByName('legacysrc') === 'true' || (typeof InstallTrigger !== 'undefined'); //Is the browser either FireFox or are we forcing legacy support?
+  }
+
   // *****************
 
   function fetch_file() {
@@ -88,7 +93,13 @@
       'fileId': state.ids.pop(),
       'alt': 'media'
     }).then(function(file){
-      $('#content')[0].srcdoc=file.body;
+      if (needLegacySrc()) {
+        $('#content')[0].contentWindow.document.open('text/html', 'replace');
+        $('#content')[0].contentWindow.document.write(file.body);
+        $('#content')[0].contentWindow.document.close();
+      } else {
+        $('#content')[0].srcdoc=file.body;
+      }
       $('#loader').hide();
     }).catch(function(err) {
       $('#loader').hide();
@@ -141,20 +152,28 @@
         	save: saver
         });
 
-        //Watch the title
+        //Set the title
         $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
-        $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
-          $('#top-title').text(evt.target.innerText);
-        }, false);
 
-        //Watch hash
-        $(window).on("hashchange",function() {
-        	$('#content')[0].contentWindow.location.hash = location.hash;
-        });
+        if (!needLegacySrc()) {
+            //Watch the title
+            $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
+                $('#top-title').text(evt.target.innerText);
+            }, false);
 
-        $($('#content')[0].contentWindow).on("hashchange",function() {
-        	location.hash = $('#content')[0].contentWindow.location.hash;
-        });
+            //Watch hash
+            $(window).on("hashchange",function() {
+              console.log("Before parent->child");
+            	$('#content')[0].contentWindow.location.hash = location.hash;
+              console.log("After parent->child");
+            });
+
+            $($('#content')[0].contentWindow).on("hashchange",function() {
+              console.log("Before child->parent");
+            	location.hash = $('#content')[0].contentWindow.location.hash;
+              console.log("After child->parent");
+            });
+        }
 
         //Enable hotkey saving
         function save_hotkey(event) {
@@ -230,4 +249,8 @@
     }
     createCookie('disablesave', this.checked, 364);
   });
+
+  if (needLegacySrc()) {
+      $('.legacy-mode').show();
+  }
 })();
