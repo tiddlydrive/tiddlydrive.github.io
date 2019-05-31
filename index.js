@@ -62,7 +62,7 @@
   }
 
   function is_prod() {
-    return "tiddlydrive.lordratte.info" == window.location.hostname;
+    return "tiddlydrive.github.io" == window.location.hostname;
   }
 
   function getParameterByName(name, url) {
