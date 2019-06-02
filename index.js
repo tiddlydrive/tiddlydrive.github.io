@@ -62,8 +62,7 @@
   }
 
   function is_prod() {
-    return "tiddlydrive.github.io" == window.location.hostname
-	&& ["/", "", "?", "/?"].indexOf(window.location.pathname) != -1; // Variation for compatibility
+    return "tiddlydrive.github.io" == window.location.hostname;
   }
 
   function getParameterByName(name, url) {
