@@ -3,11 +3,11 @@
   <head>
     <title id="top-title">Tiddly Drive</title>
     <meta charset='utf-8' />
-    <link type="text/css" rel="stylesheet" href="index.css"/>
-    <link rel="stylesheet" href="/materialize.min.css">
-    <link rel="stylesheet" href="/icon.css">
-    <script src="/jquery.min.js"></script>
-    <script src="/materialize.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="./rec/index.css"/>
+    <link rel="stylesheet" href="./lib/materialize.min.css">
+    <link rel="stylesheet" href="./lib/icon.css">
+    <script src="./lib/jquery.min.js"></script>
+    <script src="./lib/materialize.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
@@ -15,7 +15,7 @@
       <h1>There was an error downloading the file</h1>
     </div>
     <div class="modal-content grey-text text-darken-3" id="nofile-msg">
-      <h3>Open a file from <a href="http://drive.google.com">Google Drive <img src="/drive-logo.png"></a> by adding the Tiddly Drive addon.</h3>
+      <h3>Open a file from <a href="http://drive.google.com">Google Drive <img src="./img/drive-logo.png"></a> by adding the Tiddly Drive addon.</h3>
       <p>For detailed instructions to install, check the <a href="https://lordratte.gitlab.io/tiddlydrive">info page</a></p>
     </div>
     <div class="progress" id="loader">
@@ -98,7 +98,7 @@
         <a class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
-    <script type="text/javascript" src="/index.js"></script>
+    <script type="text/javascript" src="./rec/index.js"></script>
     <script async defer src="https://apis.google.com/js/api.js"
       onload="this.onload=function(){};handleClientLoad()"
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
