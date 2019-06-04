@@ -219,7 +219,8 @@
   $(document).ready(function(){
     if (!is_prod()) {
       $('#nonprod-warning').modal('open');
-    }
+      $('.dev').show();
+    } else $('.prod').show();
     $('ul.tabs').tabs();
   });
   $('#hide-fab').click(function(){

@@ -42,3 +42,7 @@ right: 10%;
 text-align: center;
 background-color: #fff;
 }
+
+.prod {display:none;}
+.dev {display:none;}
+
