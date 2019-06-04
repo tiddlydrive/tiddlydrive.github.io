@@ -29,3 +29,16 @@ body {
 .legacy-mode {
   display: none;
 }
+
+.floating-title {
+position: fixed;
+z-index: 1;
+top: 10px;
+padding: 10px;
+border-radius: 24px;
+color: rgba(238,110,115,0.7);
+left: 10%;
+right: 10%;
+text-align: center;
+background-color: #fff;
+}

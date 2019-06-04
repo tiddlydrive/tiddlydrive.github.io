@@ -36,16 +36,29 @@
       </div>
     </div>
 
+    <div id="dlg-warning" class="modal">
+      <div class="modal-content">
+        <h4 id="dlg-warning-title"></h4>
+        <p id="dlg-warning-body"></p>
+      </div>
+      <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Ok</a>
+      </div>
+    </div>
+
     <div id="settings" class="modal modal-fixed-footer">
       <div class="modal-content">
-        <h4>Tiddly Drive Settings</h4>
+	<br style="display: block;line-height: 40px;">
+        <h4 class="z-depth-1 floating-title">Tiddly Drive Settings
+	</h4>
         <h5 class="tooltipped legacy-mode" data-tooltip="Firefox doesn't currently support certain features">Legacy Mode <i class="material-icons">info outline</i></h5><i class="legacy-mode">(<a href="https://lordratte.gitlab.io/tiddlydrive/#which-browsers-are-supported">see official page</a>)</i>
         <p>
           <div class="row">
             <div class="col s12">
-              <ul class="tabs">
+	      <ul class="tabs"> <!-- Settings Tabs -->
                 <li class="tab col s3"><a href="#options">Options</a></li>
-                <li class="tab col s3"><a class="active" href="#about">About</a></li>
+                <li class="tab col s3"><a href="#about">About</a></li>
+                <li class="tab col s3"><a href="#news">News</a></li>
               </ul>
             </div>
             <div id="options" class="col s12">
@@ -90,6 +103,10 @@
               <p>Thanks for using Tiddly Drive. The project is open source and license can be found <a href="/LICENSE.md" target="_blank">here</a>. If you would like to contribute, the repository is <a href="https://github.com/tiddlydrive/tiddlydrive.github.io" target="_blank">here</a>.<br>
                  If you like my work, you can donate to me via Bitcoin: 1KWgrQZM1mTrzoo6GKo1ijTbXPSWcaVRbY <i class="material-icons">favorite</i></p>
             </div>
+	    <div id="news" class="col s12">
+            <!-- Twitter feed -->
+            <a class="twitter-timeline" data-theme="light" data-link-color="#ee6e73" href="https://twitter.com/Lord_Ratte?ref_src=twsrc%5Etfw">Tweets by Lord_Ratte</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+	    </div>
           </div>
         </p>
       </div>
