@@ -15,13 +15,27 @@
    *  On load, called to load the auth2 library and API client library.
    */
   window.handleClientLoad = function() {
-    gapi.load('client:auth2', initClient);
+    gapi.load('client:auth2', {callback:initClient});
   }
 
   /**
    *  Initializes the API client library and sets up sign-in state
    *  listeners.
    */
+
+  function onError(e) {
+    var code = "";
+    try {
+      code = e.error;
+    } catch (er) {}
+
+    var span = "";
+    if (-1 < code.indexOf("popup")) {
+      span = "Please ensure that you have allowed popups";
+    }
+    showWarning("Error", "<span>" + span + "</span><br><br><b>Error message:</b><pre>" + $('<div>').text(JSON.stringify(e, null, 2)).html() + "</pre>"); 
+  }
+
   function initClient() {
     gapi.client.init({
       apiKey: API_KEY,
@@ -45,7 +59,7 @@
     if (isSignedIn) {
       fetch_file();
     } else {
-      gapi.auth2.getAuthInstance().signIn();
+      gapi.auth2.getAuthInstance().signIn().catch(onError);
     }
   }
 
@@ -62,7 +76,8 @@
   }
 
   function is_prod() {
-    return "tiddlydrive.github.io" == window.location.hostname;
+    return "tiddlydrive.github.io" == window.location.hostname
+	&& ["/", "", "?", "/?"].indexOf(window.location.pathname) != -1; // Variation for compatibility
   }
 
   function getParameterByName(name, url) {
@@ -77,6 +92,12 @@
 
   function needLegacySrc() {
       return getParameterByName('legacysrc') === 'true' || (typeof InstallTrigger !== 'undefined'); //Is the browser either FireFox or are we forcing legacy support?
+  }
+
+  function showWarning(title, body) {
+    $("#dlg-warning-title").text(title);
+    $("#dlg-warning-body").html(body);
+    $("#dlg-warning").modal("open");
   }
 
   // *****************
@@ -192,13 +213,15 @@
   }
 
   setupSaver();
-  $('.modal').modal();
+  $('.modal').modal({"ready": function(){
+	    		$('ul.tabs').tabs('select_tab', 'options');
+    		    }});
   $(document).ready(function(){
     if (!is_prod()) {
       $('#nonprod-warning').modal('open');
-    }
+      $('.dev').show();
+    } else $('.prod').show();
     $('ul.tabs').tabs();
-    $('ul.tabs').tabs('select_tab', 'options');
   });
   $('#hide-fab').click(function(){
     $('#open-settings').hide();
