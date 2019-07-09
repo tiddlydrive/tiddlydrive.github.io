@@ -212,6 +212,13 @@
     }
   }
 
+  function getPayfastLink(amount) {
+	var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=11475231&amp;item_name=Donate+to+TiddlyDrive&amp;item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amp;amount={amount}&amp;return_url={done}&amp;cancel_url={cancel}",
+	    cancel = "",
+	    done = "https://tiddlydrive.gitlab.io/thanks";
+  	return template.replace("{cancel}", cancel).replace("{done}", done).replace("amount", amount);
+  }
+
   setupSaver();
   $('.modal').modal({"ready": function(){
 	    		$('ul.tabs').tabs('select_tab', 'options');
@@ -272,6 +279,14 @@
     }
     createCookie('disablesave', this.checked, 364);
   });
+
+  $("#donate_amount").change(function(){
+  	if (!$("#donate_amount").hasClass("invalid")) {
+		$("#payfastlink").attr("href", getPayfastLink($("#donate_amount").val()));
+	}
+  });
+  $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").attr("value"))); //Get the default amount
+
 
   if (needLegacySrc()) {
       $('.legacy-mode').show();
