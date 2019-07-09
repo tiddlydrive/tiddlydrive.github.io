@@ -213,7 +213,7 @@
   }
 
   function getPayfastLink(amount) {
-	var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=11475231&amp;item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
+	var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=11475231&item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
 	    cancel = "",
 	    done = "https://tiddlydrive.gitlab.io/thanks";
   	return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
