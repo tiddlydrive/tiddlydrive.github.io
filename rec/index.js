@@ -216,7 +216,7 @@
 	var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=11475231&amp;item_name=Donate+to+TiddlyDrive&amp;item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amp;amount={amount}&amp;return_url={done}&amp;cancel_url={cancel}",
 	    cancel = "",
 	    done = "https://tiddlydrive.gitlab.io/thanks";
-  	return template.replace("{cancel}", cancel).replace("{done}", done).replace("amount", amount);
+  	return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
   }
 
   setupSaver();
