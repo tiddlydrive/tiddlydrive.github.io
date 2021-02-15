@@ -28,12 +28,9 @@ body {
 
 .legacy-mode {
   display: none;
-  margin-top: 100px;
 }
 
 .floating-title {
-position: fixed;
-z-index: 1;
 top: 10px;
 padding: 10px;
 border-radius: 24px;
