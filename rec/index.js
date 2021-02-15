@@ -77,7 +77,7 @@
 
   function is_prod() {
     return "tiddlydrive.github.io" == window.location.hostname
-	&& ["/", "", "?", "/?"].indexOf(window.location.pathname) != -1; // Variation for compatibility
+  && ["/", "", "?", "/?"].indexOf(window.location.pathname) != -1; // Variation for compatibility
   }
 
   function getParameterByName(name, url) {
@@ -163,70 +163,72 @@
 
   function setupSaver() {
     try {
-	var $tw = $('#content')[0].contentWindow.$tw;
+  var $tw = $('#content')[0].contentWindow.$tw;
     } catch (e) {
-	console.log(e);
+  console.log(e);
     }
-    if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
-        $tw.saverHandler.savers.push({
-        	info: {
-        		name: "tiddly-drive",
-        		priority: 5000,
-        		capabilities: ["save", "autosave"]
-        	},
-        	save: saver
+    if (!window.installedSaver) {
+      if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
+    $tw.saverHandler.savers.push({
+      info: {
+        name: "tiddly-drive",
+        priority: 5000,
+        capabilities: ["save", "autosave"]
+      },
+      save: saver
+    });
+    window.installedSaver = true;
+    //Set the title
+    $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
+
+    if (!needLegacySrc()) {
+        //Watch the title
+        $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
+      $('#top-title').text(evt.target.innerText);
+        }, false);
+
+        //Watch hash
+        $(window).on("hashchange",function() {
+          console.log("Before parent->child");
+      $('#content')[0].contentWindow.location.hash = location.hash;
+          console.log("After parent->child");
         });
-	window.installedSaver = true;
-        //Set the title
-        $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
 
-        if (!needLegacySrc()) {
-            //Watch the title
-            $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
-                $('#top-title').text(evt.target.innerText);
-            }, false);
+        $($('#content')[0].contentWindow).on("hashchange",function() {
+          console.log("Before child->parent");
+      location.hash = $('#content')[0].contentWindow.location.hash;
+          console.log("After child->parent");
+        });
+    }
 
-            //Watch hash
-            $(window).on("hashchange",function() {
-              console.log("Before parent->child");
-            	$('#content')[0].contentWindow.location.hash = location.hash;
-              console.log("After parent->child");
-            });
+    //Enable hotkey saving
+    function save_hotkey(event) {
+      if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
+      var $tw = $('#content')[0].contentWindow.$tw;
+      $tw.saverHandler.saveWiki();
+      event.preventDefault();
+      return false;
+    }
 
-            $($('#content')[0].contentWindow).on("hashchange",function() {
-              console.log("Before child->parent");
-            	location.hash = $('#content')[0].contentWindow.location.hash;
-              console.log("After child->parent");
-            });
-        }
-
-        //Enable hotkey saving
-        function save_hotkey(event) {
-          if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
-          var $tw = $('#content')[0].contentWindow.$tw;
-          $tw.saverHandler.saveWiki();
-          event.preventDefault();
-          return false;
-        }
-
-        $(window).keypress(save_hotkey);
-        $($('#content')[0].contentWindow).keypress(save_hotkey);
-    } else if (!window.installedSaver) {
-      setTimeout(setupSaver, 1000);
+    $(window).keypress(save_hotkey);
+    $($('#content')[0].contentWindow).keypress(save_hotkey);
+      } else {
+        setTimeout(setupSaver, 1000);
+      }
     }
   }
 
   function getPayfastLink(amount) {
-	var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=11475231&item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
-	    cancel = "",
-	    done = "https://tiddlydrive.gitlab.io/thanks";
-  	return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
+  var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=11475231&item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
+      cancel = "",
+      done = "https://tiddlydrive.gitlab.io/thanks";
+    return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
   }
 
   setupSaver();
   $('.modal').modal({"ready": function(){
-	    		$('ul.tabs').tabs('select_tab', 'options');
-    		    }});
+          $('ul.tabs').tabs('select_tab', 'options');
+            }});
   $(document).ready(function(){
     if (!is_prod()) {
       $('#nonprod-warning').modal('open');
@@ -285,9 +287,9 @@
   });
 
   $("#donate_amount").change(function(){
-  	if (!$("#donate_amount").hasClass("invalid")) {
-		$("#payfastlink").attr("href", getPayfastLink($("#donate_amount").val()));
-	}
+    if (!$("#donate_amount").hasClass("invalid")) {
+    $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").val()));
+  }
   });
   $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").attr("value"))); //Get the default amount
 
