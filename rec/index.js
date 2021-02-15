@@ -1,8 +1,4 @@
 (function(){
-  if (window.tiddly_drive_loaded) {
-    return;
-  }
-  window.tiddly_drive_loaded = true;
   // Client ID and API key from the Developer Console
   var CLIENT_ID = '292510858390-7md8cr4332ppas1hcoccj7g1j24i9iqg.apps.googleusercontent.com';
   var API_KEY = 'AIzaSyD93IWoZl51SrV2h9K336iUnRzZCP-0GPA';
@@ -112,6 +108,7 @@
       $('#loader').hide();
       $('#nofile-msg').show();
       $('#content').hide();
+      setupSaver();
       return;
     }
     gapi.client.drive.files.get({
@@ -226,7 +223,6 @@
     return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
   }
 
-  setupSaver();
   $('.modal').modal({"ready": function(){
           $('ul.tabs').tabs('select_tab', 'options');
             }});
