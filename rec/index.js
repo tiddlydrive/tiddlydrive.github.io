@@ -217,9 +217,8 @@
 
       $(window).keypress(save_hotkey);
       $($('#content')[0].contentWindow).keypress(save_hotkey);
-	} else {
-	  setTimeout(setupSaver, 1000);
-	}
+    } else {
+        setTimeout(setupSaver, 1000);
     }
   }
 
