@@ -295,4 +295,6 @@
   if (needLegacySrc()) {
       $('.legacy-mode').show();
   }
+
+  btcdonate();
 })();
