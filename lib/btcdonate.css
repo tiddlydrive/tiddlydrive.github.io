@@ -13,6 +13,7 @@
   border-radius: 10px;
   border: #7F7F7F solid 1px;
   text-align: center;
+  z-index: 2;
 }
 .btcdonate-bubble:after {
   content: '';
@@ -22,7 +23,7 @@
   border-color: #ffffff transparent;
   display: block;
   width: 0;
-  z-index: 1;
+  z-index: 2;
   margin-left: -9px;
   bottom: -10px;
   left: 50%;
