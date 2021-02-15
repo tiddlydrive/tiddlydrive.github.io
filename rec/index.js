@@ -176,7 +176,7 @@
         	},
         	save: saver
         });
-
+	window.installedSaver = true;
         //Set the title
         $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
 
@@ -211,7 +211,7 @@
 
         $(window).keypress(save_hotkey);
         $($('#content')[0].contentWindow).keypress(save_hotkey);
-    } else {
+    } else if (!window.installedSaver) {
       setTimeout(setupSaver, 1000);
     }
   }
