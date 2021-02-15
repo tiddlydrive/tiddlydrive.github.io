@@ -108,7 +108,6 @@
       $('#loader').hide();
       $('#nofile-msg').show();
       $('#content').hide();
-      setupSaver();
       return;
     }
     gapi.client.drive.files.get({
@@ -122,6 +121,7 @@
       } else {
         $('#content')[0].srcdoc=file.body;
       }
+      setupSaver();
       $('#loader').hide();
     }).catch(function(err) {
       $('#loader').hide();
