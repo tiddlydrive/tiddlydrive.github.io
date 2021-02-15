@@ -1,4 +1,11 @@
 (function(){
+  if (!window.tiddly_drive_loaded) {
+    if (window.tiddly_drive_loaded === 1) {
+      window.tiddly_drive_loaded = 2;
+    } else {
+      return;
+    }
+  }
   // Client ID and API key from the Developer Console
   var CLIENT_ID = '292510858390-7md8cr4332ppas1hcoccj7g1j24i9iqg.apps.googleusercontent.com';
   var API_KEY = 'AIzaSyD93IWoZl51SrV2h9K336iUnRzZCP-0GPA';
@@ -163,58 +170,56 @@
 
   function setupSaver() {
     try {
-  var $tw = $('#content')[0].contentWindow.$tw;
-    } catch (e) {
-  console.log(e);
-    }
-    if (!window.installedSaver) {
-      if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
-    $tw.saverHandler.savers.push({
-      info: {
-        name: "tiddly-drive",
-        priority: 5000,
-        capabilities: ["save", "autosave"]
-      },
-      save: saver
-    });
-    window.installedSaver = true;
-    //Set the title
-    $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
-
-    if (!needLegacySrc()) {
-        //Watch the title
-        $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
-      $('#top-title').text(evt.target.innerText);
-        }, false);
-
-        //Watch hash
-        $(window).on("hashchange",function() {
-          console.log("Before parent->child");
-      $('#content')[0].contentWindow.location.hash = location.hash;
-          console.log("After parent->child");
-        });
-
-        $($('#content')[0].contentWindow).on("hashchange",function() {
-          console.log("Before child->parent");
-      location.hash = $('#content')[0].contentWindow.location.hash;
-          console.log("After child->parent");
-        });
-    }
-
-    //Enable hotkey saving
-    function save_hotkey(event) {
-      if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
       var $tw = $('#content')[0].contentWindow.$tw;
-      $tw.saverHandler.saveWiki();
-      event.preventDefault();
-      return false;
+    } catch (e) {
+      console.log(e);
     }
+    if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
+      $tw.saverHandler.savers.push({
+	info: {
+	  name: "tiddly-drive",
+	  priority: 5000,
+	  capabilities: ["save", "autosave"]
+	},
+	save: saver
+      });
+      //Set the title
+      $('#top-title').text($('#content')[0].contentWindow.document.getElementsByTagName("title")[0].innerText);
 
-    $(window).keypress(save_hotkey);
-    $($('#content')[0].contentWindow).keypress(save_hotkey);
-      } else {
-        setTimeout(setupSaver, 1000);
+      if (!needLegacySrc()) {
+	  //Watch the title
+	  $('#content')[0].contentWindow.document.getElementsByTagName("title")[0].addEventListener("DOMSubtreeModified", function(evt) {
+	$('#top-title').text(evt.target.innerText);
+	  }, false);
+
+	  //Watch hash
+	  $(window).on("hashchange",function() {
+	    console.log("Before parent->child");
+	$('#content')[0].contentWindow.location.hash = location.hash;
+	    console.log("After parent->child");
+	  });
+
+	  $($('#content')[0].contentWindow).on("hashchange",function() {
+	    console.log("Before child->parent");
+	location.hash = $('#content')[0].contentWindow.location.hash;
+	    console.log("After child->parent");
+	  });
       }
+
+      //Enable hotkey saving
+      function save_hotkey(event) {
+	if (!(event.which == 115 && event.ctrlKey) && !(event.which == 19) || !$('#enable-hotkey-save')[0].checked) return true;
+	var $tw = $('#content')[0].contentWindow.$tw;
+	$tw.saverHandler.saveWiki();
+	event.preventDefault();
+	return false;
+      }
+
+      $(window).keypress(save_hotkey);
+      $($('#content')[0].contentWindow).keypress(save_hotkey);
+	} else {
+	  setTimeout(setupSaver, 1000);
+	}
     }
   }
 
