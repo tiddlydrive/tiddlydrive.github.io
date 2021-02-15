@@ -162,7 +162,11 @@
 
 
   function setupSaver() {
-    var $tw = $('#content')[0].contentWindow.$tw;
+    try {
+	var $tw = $('#content')[0].contentWindow.$tw;
+    } catch (e) {
+	console.log(e);
+    }
     if(typeof($tw) !== "undefined" && $tw && $tw.saverHandler && $tw.saverHandler.savers) {
         $tw.saverHandler.savers.push({
         	info: {
