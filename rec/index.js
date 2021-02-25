@@ -217,83 +217,86 @@
   }
 
   function getPayfastLink(amount) {
-  var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=11475231&item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
+    var template = "https://www.payfast.co.za/eng/process?cmd=_paynow&receiver=11475231&item_name=Donate+to+TiddlyDrive&item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amount={amount}&return_url={done}&cancel_url={cancel}",
       cancel = "",
       done = "https://tiddlydrive.gitlab.io/thanks";
     return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
   }
 
-  $('.modal').modal({"ready": function(){
-          $('ul.tabs').tabs('select_tab', 'options');
-            }});
   $(document).ready(function(){
+
+    $('.modal').modal({"ready": function(){
+	    $('ul.tabs').tabs('select_tab', 'options');
+	      }});
+    $('#hide-fab').click(function(){
+      $('#open-settings').hide();
+    });
+    $('#auth').click(function() {
+      gapi.auth2.getAuthInstance().signIn();
+    });
+
+    //Handle checkboxes
+    $('#enable-autosave')[0].checked = readCookie('enableautosave') !== 'false';
+    $('#enable-autosave').change(function() {
+      function createCookie(name,value,days) {
+	  var expires = "";
+	  if (days) {
+	      var date = new Date();
+	      date.setTime(date.getTime() + (days*24*60*60*1000));
+	      expires = "; expires=" + date.toUTCString();
+	  }
+	  document.cookie = name + "=" + value + expires + "; path=/";
+      }
+      createCookie('enableautosave', this.checked, 364);
+    });
+
+    $('#enable-hotkey-save')[0].checked = readCookie('enablehotkeysave') !== 'false';
+    $('#enable-hotkey-save').change(function() {
+      function createCookie(name,value,days) {
+	  var expires = "";
+	  if (days) {
+	      var date = new Date();
+	      date.setTime(date.getTime() + (days*24*60*60*1000));
+	      expires = "; expires=" + date.toUTCString();
+	  }
+	  document.cookie = name + "=" + value + expires + "; path=/";
+      }
+      createCookie('enablehotkeysave', this.checked, 364);
+    });
+
+    $('#disable-save')[0].checked = readCookie('disablesave') === 'true';
+    $('#disable-save').change(function() {
+      function createCookie(name,value,days) {
+	  var expires = "";
+	  if (days) {
+	      var date = new Date();
+	      date.setTime(date.getTime() + (days*24*60*60*1000));
+	      expires = "; expires=" + date.toUTCString();
+	  }
+	  document.cookie = name + "=" + value + expires + "; path=/";
+      }
+      createCookie('disablesave', this.checked, 364);
+    });
+
+    $("#donate_amount").change(function(){
+      if (!$("#donate_amount").hasClass("invalid")) {
+      $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").val()));
+    }
+    });
+    $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").attr("value"))); //Get the default amount
+
+
+    if (needLegacySrc()) {
+	$('.legacy-mode').show();
+    }
+
+    btcdonate();
+
     if (!is_prod()) {
       $('#nonprod-warning').modal('open');
       $('.dev').show();
     } else $('.prod').show();
+
     $('ul.tabs').tabs();
   });
-  $('#hide-fab').click(function(){
-    $('#open-settings').hide();
-  });
-  $('#auth').click(function() {
-    gapi.auth2.getAuthInstance().signIn();
-  });
-
-  //Handle checkboxes
-  $('#enable-autosave')[0].checked = readCookie('enableautosave') !== 'false';
-  $('#enable-autosave').change(function() {
-    function createCookie(name,value,days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + value + expires + "; path=/";
-    }
-    createCookie('enableautosave', this.checked, 364);
-  });
-
-  $('#enable-hotkey-save')[0].checked = readCookie('enablehotkeysave') !== 'false';
-  $('#enable-hotkey-save').change(function() {
-    function createCookie(name,value,days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + value + expires + "; path=/";
-    }
-    createCookie('enablehotkeysave', this.checked, 364);
-  });
-
-  $('#disable-save')[0].checked = readCookie('disablesave') === 'true';
-  $('#disable-save').change(function() {
-    function createCookie(name,value,days) {
-        var expires = "";
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days*24*60*60*1000));
-            expires = "; expires=" + date.toUTCString();
-        }
-        document.cookie = name + "=" + value + expires + "; path=/";
-    }
-    createCookie('disablesave', this.checked, 364);
-  });
-
-  $("#donate_amount").change(function(){
-    if (!$("#donate_amount").hasClass("invalid")) {
-    $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").val()));
-  }
-  });
-  $("#payfastlink").attr("href", getPayfastLink($("#donate_amount").attr("value"))); //Get the default amount
-
-
-  if (needLegacySrc()) {
-      $('.legacy-mode').show();
-  }
-
-  btcdonate();
 })();
