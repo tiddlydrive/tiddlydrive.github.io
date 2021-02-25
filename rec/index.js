@@ -237,7 +237,7 @@
             .replace("{amount}", amount);
     }
 
-    $(document).on('load', function() {
+    $(window).on('load', function() {
 
         $('.modal').modal({
             "ready": function() {
