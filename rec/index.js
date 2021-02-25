@@ -223,7 +223,7 @@
     return template.replace("{cancel}", encodeURIComponent(cancel)).replace("{done}", encodeURIComponent(done)).replace("{amount}", amount);
   }
 
-  $(document).ready(function(){
+  $(document).load(function(){
 
     $('.modal').modal({"ready": function(){
 	    $('ul.tabs').tabs('select_tab', 'options');
