@@ -17,6 +17,25 @@
       onreadystatechange="if (this.readyState === 'complete') this.onload()">
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+  <template id="news_row">
+
+    <div class="row">
+      <div class="col s12">
+					<div class="card horizontal">
+						<span class="card-title"></span>
+						<div class="card-stacked">
+							<div class="card-content">
+							</div>
+							<div class="card-action">
+								<a target="_blank" class="card-link">Go to post</a>
+							</div>
+						</div>
+					</div>
+				</div>
+      </div>
+    </div>
+
+  </template>
   </head>
   <body>
     <div class="modal-content grey-text text-darken-2" id="error-msg">
@@ -58,14 +77,14 @@
       <div class="modal-content">
         <br style="display: block;line-height: 100px;">
         <h4 class="z-depth-1 floating-title">Tiddly Drive Settings<br>
-	       <img src="https://img.shields.io/github/tag/tiddlydrive/development.svg" style="max-width:100%;" class="dev">
-	       <img src="https://img.shields.io/github/tag/tiddlydrive/tiddlydrive.github.io.svg" style="max-width:100%;" class="prod">
+         <img src="https://img.shields.io/github/tag/tiddlydrive/development.svg" style="max-width:100%;" class="dev">
+         <img src="https://img.shields.io/github/tag/tiddlydrive/tiddlydrive.github.io.svg" style="max-width:100%;" class="prod">
         </h4> 
         <h5 class="tooltipped legacy-mode" data-tooltip="Firefox doesn't currently support certain features">Legacy Mode <i class="material-icons">info outline</i></h5><i class="legacy-mode">(<a target="_blank" href="https://lordratte.gitlab.io/tiddlydrive/#which-browsers-are-supported">see official page</a>)</i>
         <p>
           <div class="row">
             <div class="col s12">
-	      <ul class="tabs"> <!-- Settings Tabs -->
+        <ul class="tabs"> <!-- Settings Tabs -->
                 <li class="tab col s3"><a href="#options">Options</a></li>
                 <li class="tab col s3"><a href="#about">About<i class="material-icons">info</i></a></li>
                 <li class="tab col s3"><a href="#news">News</a></li>
@@ -111,61 +130,61 @@
             </div>
             <div id="about" class="col s12">
               <p>Thanks for using Tiddly Drive. The project is open source and license can be found <a href="/LICENSE.md" target="_blank">here</a>. If you would like to contribute, the repository is <a href="https://github.com/tiddlydrive/tiddlydrive.github.io" target="_blank">here</a>.<br>
-	      	 Need help? <a href="https://lordratte.gitlab.io/tiddlydrive" target="_blank">Project Page</a>.<br><br>
-		<div class="row">
-		    <div class="col s6">
-			<a
-			href="https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=11475231&amp;item_name=Donate+to+TiddlyDrive&amp;item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amp;amount={amount}&amp;return_url={return}&amp;cancel_url={cancel}"
-			target="_blank"
-			class="waves-effect waves-light btn yellow darken-3"
-   			id="payfastlink"
-			>
-			Donate to Tiddly Drive
-			<i class="material-icons left">thumb_up</i>
-			</a>
-		    </div>
-		    <div class="input-field col s6">
-          		<input id="donate_amount"
-				type="number"
-				class="validate"
-				min="5"
-				value="20">
-          		<label for="donate_amount" class="active">Amount to donate (ZAR)</label>
-		    </div>
+           Need help? <a href="https://lordratte.gitlab.io/tiddlydrive" target="_blank">Project Page</a>.<br><br>
+    <div class="row">
+        <div class="col s6">
+      <a
+      href="https://www.payfast.co.za/eng/process?cmd=_paynow&amp;receiver=11475231&amp;item_name=Donate+to+TiddlyDrive&amp;item_description=Any+donations+are+split+into+two+parts+for+quota+funding+and+development+costs+as+a+thanks.&amp;amount={amount}&amp;return_url={return}&amp;cancel_url={cancel}"
+      target="_blank"
+      class="waves-effect waves-light btn yellow darken-3"
+         id="payfastlink"
+      >
+      Donate to Tiddly Drive
+      <i class="material-icons left">thumb_up</i>
+      </a>
+        </div>
+        <div class="input-field col s6">
+              <input id="donate_amount"
+        type="number"
+        class="validate"
+        min="5"
+        value="20">
+              <label for="donate_amount" class="active">Amount to donate (ZAR)</label>
+        </div>
 
-		</div>
-		<div class="row">
-		    <div class="col s6">
-			<a
-			href="bitcoin:bc1qngde6nmse8ck7dxut7jfqcalpgscw7c8r5zk3u"
-			>
-			Contribute Some Bitcoin
-			</a>
-		    </div>
-		</div>
-		<div class="row">
-		   <p><!--TODO: list of used software --></p>
-		   <p><!--https://github.com/danielquinn/bitcoin-donate --></p>
-		</div>
-		<!--<div class="row">
-		    <div class="col s6">
-			<a
-			href=""
-			target="_blank"
-			class="waves-effect waves-light btn amber darken-4"
-			>
-			Become a Patron
-			<i class="material-icons left">card_membership</i>
-			</a><br>
-		    </div>
-		</div>-->
+    </div>
+    <div class="row">
+        <div class="col s6">
+      <a
+      href="bitcoin:bc1qngde6nmse8ck7dxut7jfqcalpgscw7c8r5zk3u"
+      >
+      Contribute Some Bitcoin
+      </a>
+        </div>
+    </div>
+    <div class="row">
+       <p><!--TODO: list of used software --></p>
+       <p><!--https://github.com/danielquinn/bitcoin-donate --></p>
+    </div>
+    <!--<div class="row">
+        <div class="col s6">
+      <a
+      href=""
+      target="_blank"
+      class="waves-effect waves-light btn amber darken-4"
+      >
+      Become a Patron
+      <i class="material-icons left">card_membership</i>
+      </a><br>
+        </div>
+    </div>-->
 
-		<!--Direct donation via Bitcoin: 1KWgrQZM1mTrzoo6GKo1ijTbXPSWcaVRbY <i class="material-icons">favorite</i></p>-->
+    <!--Direct donation via Bitcoin: 1KWgrQZM1mTrzoo6GKo1ijTbXPSWcaVRbY <i class="material-icons">favorite</i></p>-->
             </div>
-	    <div id="news" class="col s12">
-            <!-- Twitter feed -->
-            <a class="twitter-timeline" data-theme="light" data-link-color="#ee6e73" href="https://twitter.com/Lord_Ratte?ref_src=twsrc%5Etfw">Tweets by Lord_Ratte</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-	    </div>
+            <div id="news" class="col s12">
+              <div class="container" id="news_rows">
+              </div>
+            </div>
           </div>
         </p>
       </div>

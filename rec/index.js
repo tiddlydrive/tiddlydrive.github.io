@@ -239,6 +239,28 @@
 
     $(window).on('load', function() {
 
+				$.ajax('https://lordratte.gitlab.io/f/tiddlydrive.json').then(function(result) {
+          const template = document.getElementById('news_row');
+					result.forEach(function(post) {
+						if (post.title) {
+							var node = document.importNode(template.content, true);
+							try {
+								var t = node.querySelector('.card-title');
+								var c  = node.querySelector('.card-content');
+								var l  = node.querySelector('.card-link');
+								c.innerText = post.title;
+								l.href = post.url;
+								// May be blank:
+								t.innerText = (post.date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)||[]).pop() || '';
+							} catch (e) {
+								l.innerText = 'Go';
+							}
+							document.getElementById('news_rows').appendChild(node);
+						}
+          });
+
+				});
+
         $('.modal').modal({
             "ready": function() {
                 $('ul.tabs').tabs('select_tab', 'options');
