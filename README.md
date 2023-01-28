@@ -1,3 +1,5 @@
+[End of Life Notice](./eol_notice.md)
+
 Development version: [![Version](https://img.shields.io/github/tag/tiddlydrive/development.svg)](https://GitHub.com/tiddlydrive/development/tags/)  Production version: [![Version](https://img.shields.io/github/tag/tiddlydrive/tiddlydrive.github.io.svg)](https://GitHub.com/tiddlydrive/tiddlydrive.github.io/tags/)
 # Tiddly drive
 
